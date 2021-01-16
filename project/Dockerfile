@@ -2,6 +2,7 @@
 FROM python:3.9.0-slim-buster
 
 # set working directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # set environment variables
@@ -20,3 +21,10 @@ RUN pip install -r requirements.txt
 
 # add app
 COPY . .
+
+# add entrypoint.sh
+COPY ./entrypoint.sh .
+RUN chmod +x /usr/src/app/entrypoint.sh
+
+# run entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
